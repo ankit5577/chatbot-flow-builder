@@ -4,6 +4,7 @@ import ReactFlow, {
   Connection,
   Controls,
   Edge,
+  MarkerType,
   Node,
   ReactFlowProvider,
   addEdge,
@@ -27,7 +28,17 @@ const FlowBuilder: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
 
   const onConnect = (params: Edge | Connection) =>
-    setEdges((eds) => addEdge(params, eds));
+    setEdges((eds) =>
+      addEdge(
+        {
+          ...params,
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+          },
+        },
+        eds
+      )
+    );
 
   const onDrop = (event: DragEvent) => {
     event.preventDefault();
