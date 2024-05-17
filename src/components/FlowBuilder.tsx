@@ -11,6 +11,7 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
 } from "react-flow-renderer";
+import toast from "react-hot-toast";
 import CustomTextNode from "./CustomTextNode";
 import NodesPanel from "./NodesPanel";
 import SettingsPanel from "./SettingsPanel";
@@ -35,6 +36,7 @@ const FlowBuilder: React.FC = () => {
           markerEnd: {
             type: MarkerType.ArrowClosed,
           },
+          animated: true,
         },
         eds
       )
@@ -101,8 +103,13 @@ const FlowBuilder: React.FC = () => {
           !edges.some((edge) => edge.source === node.id) &&
           !edges.some((edge) => edge.target === node.id)
       );
-      if (nodesWithEmptyTargets.length > 1) {
-        alert("Cannot save flow: More than one node has empty target handles");
+      if (nodesWithEmptyTargets.length >= 1) {
+        toast.error(
+          "Cannot save flow: More than one node has empty target handles",
+          {
+            icon: "❌",
+          }
+        );
         return;
       }
     }
@@ -110,9 +117,13 @@ const FlowBuilder: React.FC = () => {
     // ? check if any node has empty label
     const hasErrors = nodes.some((node) => !node.data.label);
     if (hasErrors) {
-      alert("Cannot save flow: some nodes have empty labels");
+      toast.error("Cannot save flow: some nodes have empty labels.", {
+        icon: "❌",
+      });
     } else {
-      alert("Flow saved successfully");
+      toast.success("Flow saved successfully", {
+        icon: "🚀",
+      });
     }
   };
 

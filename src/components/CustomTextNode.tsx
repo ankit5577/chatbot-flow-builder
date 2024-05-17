@@ -20,15 +20,11 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data, selected }) => {
       <div className="m-0 px-4 font-bold bg-teal-400">💬 Send Message</div>
       <div className="px-4 py-2 text-lg">{data.label}</div>
 
-      <Handle
-        type="target"
-        position={Position.Left}
-        className="w-16 !bg-teal-500"
-      />
+      <Handle type="target" position={Position.Left} className="!bg-teal-500" />
       <Handle
         type="source"
         position={Position.Right}
-        className="w-16 !bg-teal-500"
+        className="!bg-teal-500"
       />
     </div>
   );
