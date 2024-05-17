@@ -14,11 +14,15 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
 }) => {
   return (
     <aside className="w-64 p-4 bg-slate-900 border-r border-slate-600">
+      <h2 className="text-slate-200 text-2xl font-semibold antialiased">
+        🐣 XYZ: Chat-flow
+      </h2>
+      <br />
       <button
         onClick={onBack}
-        className="mb-4 bg-gray-300 text-black px-4 py-2 rounded"
+        className="mb-4 text-slate-100 px-2 py-1 rounded-md bg-slate-700 duration-300 hover:bg-slate-800"
       >
-        Back
+        👈🏼 Back
       </button>
       <div className="p-4 bg-white border rounded">
         <label className="block mb-2">
