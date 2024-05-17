@@ -13,21 +13,12 @@ interface CustomNodeProps {
 const CustomNode: React.FC<CustomNodeProps> = ({ data, selected }) => {
   return (
     <div
-      className={`px-4 py-2 shadow-md rounded-md bg-white border-2 ${
-        !selected
-          ? "border-stone-400"
-          : "border-teal-400 shadow-md shadow-slate-600"
+      className={`shadow-md rounded-md bg-slate-200 border-2 ${
+        !selected ? "border-stone-400" : "border-teal-400 shadow-slate-600"
       }`}
     >
-      <div className="flex">
-        <div className="rounded-full w-12 h-12 flex justify-center items-center bg-gray-100">
-          {data.emoji}
-        </div>
-        <div className="ml-2">
-          <div className="text-lg font-bold">{data.label}</div>
-          <div className="text-gray-500">{data.job}</div>
-        </div>
-      </div>
+      <div className="m-0 px-4 font-bold bg-teal-400">💬 Send Message</div>
+      <div className="px-4 py-2 text-lg">{data.label}</div>
 
       <Handle
         type="target"
