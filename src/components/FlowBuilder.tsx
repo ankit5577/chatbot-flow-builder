@@ -24,23 +24,43 @@ const nodeTypes = {
 } as const;
 
 const FlowBuilder: React.FC = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  // ? States
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes); // ? nodes state
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges); // ? edges state
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null); // ? selected node state
 
   const onConnect = (params: Edge | Connection) =>
-    setEdges((eds) =>
+    setEdges((_eds) =>
       addEdge(
         {
           ...params,
           markerEnd: {
-            type: MarkerType.ArrowClosed,
+            type: MarkerType.ArrowClosed, // add arrow to the end of the edge
           },
-          animated: true,
+          animated: true, // animate the edge
         },
-        eds
+        _eds
       )
     );
+
+  const getRandomEmoji = () => {
+    const emojis = [
+      "👋",
+      "👍",
+      "👏",
+      "🤝",
+      "🙌",
+      "👌",
+      "🤞",
+      "🐣",
+      "🚀",
+      "⌛️",
+      "🧸",
+      "🎉",
+      "💰",
+    ];
+    return emojis[Math.floor(Math.random() * emojis.length)];
+  };
 
   const onDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -49,18 +69,21 @@ const FlowBuilder: React.FC = () => {
     const reactFlowBounds = (
       event.target as HTMLElement
     ).getBoundingClientRect();
+    console.log("FLOW_BUILDER:: reactFlowBounds", reactFlowBounds);
     const type = event.dataTransfer.getData("application/reactflow");
+    console.log("FLOW_BUILDER:: type", type);
 
     // ? get position of the node
     const position = {
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
     };
+    // ? create new node and data
     const newNode: Node = {
       id: `${new Date().getTime()}`,
       type: type === "Message" ? "customText" : "default",
       position,
-      data: { label: `${type} node` },
+      data: { label: `${type} node`, emoji: getRandomEmoji() },
     };
 
     setNodes((_node) => _node.concat(newNode));

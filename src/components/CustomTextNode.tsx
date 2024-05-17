@@ -18,7 +18,10 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data, selected }) => {
       }`}
     >
       <div className="m-0 px-4 font-bold bg-teal-400">💬 Send Message</div>
-      <div className="px-4 py-2 text-lg">{data.label}</div>
+      <div className="px-4 py-2 text-lg flex gap-2">
+        <p>{data.emoji} </p>
+        <p>{data.label}</p>
+      </div>
 
       <Handle type="target" position={Position.Left} className="!bg-teal-500" />
       <Handle
